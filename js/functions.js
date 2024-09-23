@@ -6,6 +6,8 @@ function checkLength (string, maxLength) {
 // console.log(checkLength('проверяемая строка', 20));
 // console.log(checkLength('проверяемая строка', 18));
 // console.log(checkLength('проверяемая строка', 10));
+checkLength('проверяемая строка', 20);
+
 
 function isPalindrome (string) {
   string = string.replaceAll(' ', '').toLowerCase();
@@ -24,18 +26,15 @@ function isPalindrome (string) {
 // console.log(isPalindrome('ДовОд'));
 // console.log(isPalindrome('Кекс'));
 // console.log(isPalindrome('Лёша на полке клопа нашёл '));
+isPalindrome('топот');
 
-
-function isNumber(value) {
-  return value == parseInt(value);
-}
 
 function findNumbers (string) {
   string = String(string); // если на вход подаётся number
   let number = '';
 
   for (let i = 0; i < string.length; i++) {
-    if (isNumber(string.at(i))) {
+    if (!isNaN(parseInt(string.at(i), 10))) {
       number += string.at(i);
     }
   }
@@ -52,3 +51,4 @@ function findNumbers (string) {
 // console.log(findNumbers(2023));
 // console.log(findNumbers(-1));
 // console.log(findNumbers(1.5));
+findNumbers('2023 год');
