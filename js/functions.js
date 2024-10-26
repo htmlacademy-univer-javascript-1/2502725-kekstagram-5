@@ -52,3 +52,28 @@ function findNumbers (string) {
 // console.log(findNumbers(-1));
 // console.log(findNumbers(1.5));
 findNumbers('2023 год');
+
+
+function isMeetingInWorkday(startTime, endTime, meetingStart, duration) {
+  function timeToMinutes(timeStr) {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return hours * 60 + minutes;
+  }
+
+  const startTimeInMins = timeToMinutes(startTime);
+  const endTimeInMins = timeToMinutes(endTime);
+  const meetingStartInMins = timeToMinutes(meetingStart);
+  const meetingEndInMins = meetingStartInMins + duration;
+
+  return (meetingStartInMins >= startTimeInMins && meetingEndInMins <= endTimeInMins);
+}
+
+isMeetingInWorkday('08:00', '17:30', '14:00', 90);
+// tests
+// console.log(isMeetingInWorkday('08:00', '17:30', '14:00', 90));
+// console.log(isMeetingInWorkday('8:0', '10:0', '8:0', 120));
+// console.log(isMeetingInWorkday('08:00', '14:30', '14:00', 90));
+// console.log(isMeetingInWorkday('14:00', '17:30', '08:0', 90));
+// console.log(isMeetingInWorkday('8:00', '17:30', '08:00', 900));
+
+
