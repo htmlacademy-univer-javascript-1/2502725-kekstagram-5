@@ -10,8 +10,6 @@ const likesCount = bigPictureElement.querySelector('.likes-count');
 const photoCaption = bigPictureElement.querySelector('.social__caption');
 const socialFooterText = bigPictureElement.querySelector('.social__footer-text');
 
-const bodyElement = document.querySelector('body');
-
 const commentFragment = document.createDocumentFragment();
 const createComment = ({ name, avatar, message }) => {
   const newComment = document.createElement('li');
@@ -58,10 +56,12 @@ const onLoadCommentsButtonClick = () => {
 
 const hideBigPicture = () => {
   bigPictureElement.classList.add('hidden');
-  bodyElement.classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
+
   commentsShown = COMMENTS_STEP;
   currentComments = [];
   socialFooterText.value = '';
+
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
@@ -76,11 +76,9 @@ const onCancelbuttonClick = () => {
   hideBigPicture();
 };
 
-const showBigPhoto = (data) => {
-  const {url, likes, description, comments} = data;
-
+const showBigPhoto = ({url, description, likes, comments}) => {
   bigPictureElement.classList.remove('hidden');
-  bodyElement.classList.add('modal-open');
+  document.body.classList.add('modal-open');
   commentCountElement.classList.add('hidden');
   commentsLoaderElement.classList.add('hidden');
 
