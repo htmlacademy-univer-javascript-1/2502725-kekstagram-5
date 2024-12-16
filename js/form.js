@@ -1,13 +1,20 @@
 import { resetEffects } from './effects.js';
 import { resetScale } from './scale.js';
+import { sendData } from './api.js';
+import { showErrorMessage, showSuccesMessage } from './message.js';
 
 const MAX_COMMENT_LENGTH = 140;
 const MAX_HASHTAG_COUNT = 5;
 const VALID_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
+const SUBMIT_BUTTON_TEXT = {
+  default: 'Опубликовать',
+  sending: 'Отправка...'
+};
 
 const imgUploadForm = document.querySelector('.img-upload__form');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadCancel = document.querySelector('.img-upload__cancel');
+const imgUploadSubmit = document.querySelector('.img-upload__submit');
 const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 const body = document.body;
@@ -16,6 +23,35 @@ const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
 });
+
+const blockSubmitButton = () => {
+  imgUploadSubmit.disabled = true;
+  imgUploadSubmit.textContent = SUBMIT_BUTTON_TEXT.sending;
+};
+
+const unblockSubmitButton = () => {
+  imgUploadSubmit.disabled = false;
+  imgUploadSubmit.textContent = SUBMIT_BUTTON_TEXT.default;
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  imgUploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    if (pristine.validate()) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(() => {
+          showSuccesMessage();
+          onSuccess();
+        })
+        .catch(() => {
+          showErrorMessage();
+        })
+        .finally(unblockSubmitButton);
+    }
+  });
+};
 
 function validateComment (value) {
   return value.length <= MAX_COMMENT_LENGTH;
@@ -97,3 +133,5 @@ function onDocumentKeydown(evt) {
 imgUploadCancel.addEventListener('keydown', onDocumentKeydown);
 imgUploadCancel.addEventListener('click', closeForm);
 imgUploadForm.addEventListener('change', showForm);
+
+export { setUserFormSubmit, closeForm };

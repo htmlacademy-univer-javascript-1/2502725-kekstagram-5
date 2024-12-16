@@ -1,3 +1,19 @@
+const ALERT_SHOW_TIME = 5000;
+
+const alertStyles = {
+  zIndex : '100',
+  position : 'absolute',
+  left : '0',
+  top : '0',
+  right : '0',
+  padding : '10px 3px',
+  fontSize : '30px',
+  lineHeight : '36px',
+  textAlign : 'center',
+  backgroundColor : '#232321',
+  color: '#ffffff',
+};
+
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -17,4 +33,15 @@ function checkIds(idsSet, num) {
   return id;
 }
 
-export {checkIds, getRandomArrayElement, getRandomInteger};
+const showAlert = (message) => {
+  const alert = document.querySelector('div');
+  Object.assign(alert.style, alertStyles);
+  alert.textContent = message;
+  document.body.append(alert);
+
+  setTimeout(() => {
+    alert.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export {checkIds, getRandomArrayElement, getRandomInteger, showAlert};

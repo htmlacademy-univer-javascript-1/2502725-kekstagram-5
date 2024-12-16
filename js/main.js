@@ -1,8 +1,19 @@
-import {generatePhotos} from './data.js';
 import {renderGallery} from './gallery.js';
 import './form.js';
 import './effects.js';
 import './scale.js';
+import { getData } from './api.js';
+import { showAlert } from './util.js';
+import { setUserFormSubmit, closeForm } from './form.js';
 
 
-renderGallery(generatePhotos());
+getData()
+  .then((photos) => {
+    renderGallery(photos);
+  })
+  .catch((error) => {
+    showAlert(error.message);
+  });
+
+
+setUserFormSubmit(closeForm);
