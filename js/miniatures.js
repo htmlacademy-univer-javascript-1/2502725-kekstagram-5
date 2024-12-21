@@ -2,6 +2,7 @@ function renderMiniatures(photos, picturesContainer) {
   const photoTemplate = document.querySelector('#picture')
     .content
     .querySelector('.picture');
+  picturesContainer.querySelectorAll('.picture').forEach((element) => element.remove());
   const photosFragment = document.createDocumentFragment();
 
   photos.forEach(({url, description, likes, comments, id}) => {
