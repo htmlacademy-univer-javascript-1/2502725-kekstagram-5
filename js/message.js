@@ -30,7 +30,6 @@ function onOutsideClick (evt) {
 
 const onCloseButtonClick = () => closeMessage();
 
-
 const openMessage = (message, buttonSelector) => {
   currentMessage = message;
   document.body.appendChild(currentMessage);
@@ -38,6 +37,7 @@ const openMessage = (message, buttonSelector) => {
   document.addEventListener('keydown', onEscKeyDown);
   document.body.addEventListener('click', onOutsideClick);
 };
+
 
 const showErrorMessage = () => openMessage(errorMessage, '.error__button');
 const showSuccesMessage = () => openMessage(successMessage, '.success__button');
