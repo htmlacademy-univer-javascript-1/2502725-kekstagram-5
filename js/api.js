@@ -1,16 +1,20 @@
 const BASE_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
+
 const Route = {
   GET_DATA: '/data',
   SEND_DATA: '/',
 };
+
 const Method = {
   GET: 'GET',
   POST: 'POST',
 };
+
 const ErrorText = {
   GET_DATA: 'Не удалось получить данные. Попробуйте обновить страницу',
   SEND_DATA: 'Не удалось отправить данные. Попробуйте ещё раз',
 };
+
 const load = (route, errorText, method = Method.GET, body = null) =>
   fetch(`${BASE_URL}${route}`, {method, body})
     .then((response) => {
