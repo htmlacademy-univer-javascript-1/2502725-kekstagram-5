@@ -21,8 +21,6 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
 function checkIds(idsSet, num) {
   let id;
   do {
@@ -44,4 +42,4 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {checkIds, getRandomArrayElement, getRandomInteger, showAlert};
+export {checkIds, getRandomInteger, showAlert};
