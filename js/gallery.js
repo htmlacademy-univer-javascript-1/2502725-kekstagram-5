@@ -1,5 +1,5 @@
 import { renderMiniatures } from './miniatures.js';
-import { showBigPhoto } from './fullPhoto.js';
+import { showBigPhoto } from './full-photo.js';
 
 const container = document.querySelector('.pictures');
 

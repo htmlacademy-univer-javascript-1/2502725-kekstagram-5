@@ -5,22 +5,22 @@ import { showErrorMessage, showSuccesMessage } from './message.js';
 import { initValidation, pristineValid, resetValidator } from './validation.js';
 
 
-const SUBMIT_BUTTON_TEXT = {
+const SubmitButtonText = {
   default: 'Опубликовать',
   sending: 'Отправка...'
 };
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
-const uploadButtonElement = document.querySelector('#upload-file');
+const uploadButton = document.querySelector('#upload-file');
 const imgUploadForm = document.querySelector('.img-upload__form');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadCancel = document.querySelector('.img-upload__cancel');
 const imgUploadSubmit = document.querySelector('.img-upload__submit');
 const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
-const imagePreviewElement = document.querySelector('.img-upload__preview img');
-const effectsPreviewElement = document.querySelectorAll('.effects__preview');
+const imagePreview = document.querySelector('.img-upload__preview img');
+const effectsPreview = document.querySelectorAll('.effects__preview');
 const body = document.body;
 
 imgUploadForm.addEventListener('submit', (evt) => {
@@ -36,6 +36,10 @@ const showForm = () => {
 
 };
 
+const onShowForm = () => {
+  showForm();
+};
+
 const closeForm = () => {
   resetEffects();
   resetScale();
@@ -44,6 +48,10 @@ const closeForm = () => {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   resetValidator();
+};
+
+const onCloseForm = () => {
+  showForm();
 };
 
 function onDocumentKeydown(evt) {
@@ -56,12 +64,12 @@ function onDocumentKeydown(evt) {
 
 const blockSubmitButton = () => {
   imgUploadSubmit.disabled = true;
-  imgUploadSubmit.textContent = SUBMIT_BUTTON_TEXT.sending;
+  imgUploadSubmit.textContent = SubmitButtonText.sending;
 };
 
 const unblockSubmitButton = () => {
   imgUploadSubmit.disabled = false;
-  imgUploadSubmit.textContent = SUBMIT_BUTTON_TEXT.default;
+  imgUploadSubmit.textContent = SubmitButtonText.default;
 };
 
 const setUserFormSubmit = (onSuccess) => {
@@ -82,18 +90,18 @@ const setUserFormSubmit = (onSuccess) => {
         .finally(unblockSubmitButton);
     }
   });
-  uploadButtonElement.addEventListener('change', () => {
-    const file = uploadButtonElement.files[0];
+  uploadButton.addEventListener('change', () => {
+    const file = uploadButton.files[0];
     const fileName = file.name.toLowerCase();
     const matches = FILE_TYPES.some((extension) => fileName.endsWith(extension));
     if (matches) {
-      imagePreviewElement.src = URL.createObjectURL(file);
-      effectsPreviewElement.forEach((effect) => {
+      imagePreview.src = URL.createObjectURL(file);
+      effectsPreview.forEach((effect) => {
         effect.style.backgroundImage = `url('${URL.createObjectURL(file)}')`;
       });
-      imgUploadForm.addEventListener('change', showForm);
+      imgUploadForm.addEventListener('change', onShowForm);
     } else {
-      imgUploadForm.removeEventListener('change', showForm);
+      imgUploadForm.removeEventListener('change', onShowForm);
       showErrorMessage();
       closeForm();
     }
@@ -101,7 +109,7 @@ const setUserFormSubmit = (onSuccess) => {
 };
 
 imgUploadCancel.addEventListener('keydown', onDocumentKeydown);
-imgUploadCancel.addEventListener('click', closeForm);
+imgUploadCancel.addEventListener('click', onCloseForm);
 
 
 export { setUserFormSubmit, closeForm };
