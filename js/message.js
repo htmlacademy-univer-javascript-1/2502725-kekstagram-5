@@ -9,9 +9,9 @@ const closeMessage = () => {
   document.removeEventListener('keydown', onEscKeyDown);
   document.removeEventListener('click', onOutsideClick);
 
-  const messageElement = checkTypeMessage();
-  if (messageElement) {
-    messageElement.remove();
+  const message = checkTypeMessage();
+  if (message) {
+    message.remove();
   }
 };
 
