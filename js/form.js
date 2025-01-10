@@ -28,16 +28,12 @@ imgUploadForm.addEventListener('submit', (evt) => {
   pristineValid();
 });
 
-const showForm = () => {
+const onShowForm = () => {
   resetValidator();
   imgUploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 
-};
-
-const onShowForm = () => {
-  showForm();
 };
 
 const closeForm = () => {
