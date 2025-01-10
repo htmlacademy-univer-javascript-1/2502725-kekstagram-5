@@ -51,7 +51,7 @@ const closeForm = () => {
 };
 
 const onCloseForm = () => {
-  showForm();
+  closeForm();
 };
 
 function onDocumentKeydown(evt) {
